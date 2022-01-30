@@ -22,8 +22,9 @@
 		</dict>
 	</dict>
 	<key>NSAppTransportSecurity</key>
-	<dict/>
-	<key>Allows Local Networking </key>
-	<true/>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
