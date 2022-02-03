@@ -8,7 +8,7 @@
 import Foundation
 import CoreText
 
- class MenuController {
+class MenuController {
      static let baseURL = URL(string: "http://localhost:8080/")!
 }
 
