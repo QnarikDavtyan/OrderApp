@@ -12,30 +12,24 @@ struct MenuResponse: Codable {
 }
 
 func fetchMenuItem(
-    forCategory categoryName: String,
-    completion: @escaping (Result<[MenuItem], Error>) -> Void) {
-    let baseMenuURL = MenuController.baseURL.appendingPathComponent("menu")
+    forCategory categoryName: String) async throws -> [MenuItem] {
+    let initialMenuURL = MenuController.baseURL.appendingPathComponent("menu")
     var components = URLComponents(
-        url: baseMenuURL,
+        url: initialMenuURL,
         resolvingAgainstBaseURL: true)!
     components.queryItems = [
                 URLQueryItem(name: "category", value: categoryName)]
     let menuURL = components.url!
         
-    let task = URLSession.shared.dataTask(with: menuURL) {
-        (data, response, error) in
-        if let data = data {
-            do {
-                let jsonDecoder = JSONDecoder()
-                let menuResponse =
-                    try jsonDecoder.decode(MenuResponse.self, from: data)
-                completion(.success(menuResponse.items))
-                } catch {
-                completion(.failure(error))
-                }
-            } else if let error = error {
-                completion(.failure(error))
-            }
-}
-        task.resume()
+        let (data, response) = try await URLSession.shared.data(from: menuURL)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200
+        else { throw MenuControllerError.menuItemsNotFound }
+        
+        let decoder = JSONDecoder()
+        let menuResponse = try decoder.decode(
+            MenuResponse.self, from: data)
+        
+        return menuResponse.items
     }

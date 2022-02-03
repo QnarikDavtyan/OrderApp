@@ -16,30 +16,27 @@ struct OrderResponse: Codable {
 }
 typealias MinutesToPrepare = Int
 
-func submitOrder(forMenuIDs menuIDs: [Int], completion: @escaping (Result<MinutesToPrepare, Error>) -> Void) {
+func submitOrder(forMenuIDs menuIDs: [Int]) async throws -> MinutesToPrepare {
     let orderURL = MenuController.baseURL.appendingPathComponent("order")
     var request = URLRequest(url: orderURL)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
-    let data = ["menuIDs": menuIDs]
+    let menuIdDict = ["menuIDs": menuIDs]
     let jsonEncoder = JSONEncoder()
-    let jsonData = try? jsonEncoder.encode(data)
+    let jsonData = try? jsonEncoder.encode(menuIdDict)
     request.httpBody = jsonData
     
-    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-        if let data = data {
-            do {
-                let jsonDecoder = JSONDecoder()
-                let orderResponse =
-                try jsonDecoder.decode(OrderResponse.self, from: data)
-                completion(.success(orderResponse.prepTime))
-            } catch {
-                completion(.failure(error))
-            }
-        } else if let error = error {
-            completion(.failure(error))
-        }
-    }
-    task.resume()
+    let (data, response) = try await URLSession.shared.data(
+        for: request)
+    
+    guard let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200
+    else { throw MenuControllerError.orderRequestFailed }
+    
+    let decoder = JSONDecoder()
+    let orderResponse = try decoder.decode(
+        OrderResponse.self, from: data)
+    
+    return orderResponse.prepTime
 }

@@ -12,21 +12,17 @@ struct CategoriesResponse: Codable {
     let categories: [String]
 }
 
-func fetchCategories(completion: @escaping (Result<[String], Error>) -> Void) {
+func fetchCategories() async throws -> [String] {
     let categoriesURL = MenuController.baseURL.appendingPathComponent("categories")
-    let task = URLSession.shared.dataTask(with: categoriesURL) { (data, response, error) in
-        if let data = data {
-            do {
-                let jsonDecoder = JSONDecoder()
-                let categoriesResponse =
-                try jsonDecoder.decode(CategoriesResponse.self, from: data)
-                completion(.success(categoriesResponse.categories))
-            } catch {
-                completion(.failure(error))
-            }
-        } else if let error = error {
-            completion(.failure(error))
-        }
-    }
-    task.resume()
+    let (data, response) = try await URLSession.shared.data(from: categoriesURL)
+    
+    guard let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200
+    else { throw MenuControllerError.categoriesNotFound }
+    
+    let decoder = JSONDecoder()
+    let categoriesResponse = try decoder.decode(
+        CategoriesResponse.self, from: data)
+    
+    return categoriesResponse.categories
 }
