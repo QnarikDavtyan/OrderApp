@@ -11,7 +11,13 @@ import CoreText
 class MenuController {
     static let shared = MenuController()
     let baseURL = URL(string:"http://localhost:8080/")!
-    var order = Order()
+    static let orderUpdateNotification = Notification.Name("MenuController.orderUpdated")
+    var order = Order() { didSet {
+        NotificationCenter.default.post(
+            name: MenuController.orderUpdateNotification,
+            object: nil
+        ) }
+    }
 
 enum MenuControllerError: Error, LocalizedError {
     case categoriesNotFound
