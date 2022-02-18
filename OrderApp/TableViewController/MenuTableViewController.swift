@@ -71,7 +71,14 @@ func displayError(_ error: Error, title: String) {
         content.text = menuItem.name
         content.secondaryText =
         menuItem.price.formatted(.currency(code: "usd"))
+        content.image = UIImage(systemName: "photo.on.rectangle")
         cell.contentConfiguration = content
+        
+        Task.init {
+            if let image = try? await MenuController.shared.fetchImage(from: menuItem.imageURL) {
+                
+            }
+        }
     }
     
     @IBSegueAction func showMenuItem(_ coder: NSCoder, sender: Any?) -> MenuItemDetailViewController? {

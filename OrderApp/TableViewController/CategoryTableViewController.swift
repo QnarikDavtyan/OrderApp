@@ -36,11 +36,8 @@ class CategoryTableViewController: UITableViewController {
         guard let _ = viewIfLoaded?.window else { return }
         
         let alert = UIAlertController(
-            title: title,
-            message: error.localizedDescription,
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(
-            title: "Dismiss", style: .default, handler: nil))
+            title: title, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 

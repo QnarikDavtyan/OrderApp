@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreText
+import UIKit
 
 class MenuController {
     static let shared = MenuController()
@@ -16,13 +17,14 @@ class MenuController {
         NotificationCenter.default.post(
             name: MenuController.orderUpdateNotification,
             object: nil
-        ) }
-    }
+        )
+    }}
 
 enum MenuControllerError: Error, LocalizedError {
     case categoriesNotFound
     case menuItemsNotFound
     case orderRequestFailed
+    case imageDataMissing
 }
 
 
@@ -35,8 +37,7 @@ func fetchCategories() async throws -> [String] {
     else { throw MenuControllerError.categoriesNotFound }
     
     let decoder = JSONDecoder()
-    let categoriesResponse = try decoder.decode(
-        CategoriesResponse.self, from: data)
+    let categoriesResponse = try decoder.decode(CategoriesResponse.self, from: data)
     return categoriesResponse.categories
 }
     
@@ -87,5 +88,18 @@ func fetchCategories() async throws -> [String] {
             OrderResponse.self, from: data)
         
         return orderResponse.prepTime
+    }
+    
+    func fetchImage(from url: URL) async throws -> UIImage {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200
+        else { throw MenuControllerError.imageDataMissing }
+        
+        guard let image = UIImage(data: data) else {
+            throw MenuControllerError.imageDataMissing
+        }
+        return image
     }
 }

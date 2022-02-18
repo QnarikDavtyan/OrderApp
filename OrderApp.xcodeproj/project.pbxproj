@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3576083E27BD18E500B3B791 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3576083D27BD18E500B3B791 /* OrderConfirmationViewController.swift */; };
 		35BDE6E127A5CE32005CEB4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDE6E027A5CE32005CEB4B /* AppDelegate.swift */; };
 		35BDE6E327A5CE32005CEB4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDE6E227A5CE32005CEB4B /* SceneDelegate.swift */; };
 		35BDE6E827A5CE32005CEB4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35BDE6E627A5CE32005CEB4B /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3576083D27BD18E500B3B791 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
 		35BDE6DD27A5CE32005CEB4B /* OrderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BDE6E027A5CE32005CEB4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35BDE6E227A5CE32005CEB4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				35BDE6FB27A5E31E005CEB4B /* MenuItemDetailViewController.swift */,
+				3576083D27BD18E500B3B791 /* OrderConfirmationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				35BDE70727A5E930005CEB4B /* CategoriesResponse.swift in Sources */,
 				35BDE6F727A5DF95005CEB4B /* MenuTableViewController.swift in Sources */,
 				35BDE6FC27A5E31E005CEB4B /* MenuItemDetailViewController.swift in Sources */,
+				3576083E27BD18E500B3B791 /* OrderConfirmationViewController.swift in Sources */,
 				35BDE70E27A85E9E005CEB4B /* MenuController.swift in Sources */,
 				35BDE70227A5E7B2005CEB4B /* MenuResponse.swift in Sources */,
 				35BDE70B27A5E979005CEB4B /* Order.swift in Sources */,
