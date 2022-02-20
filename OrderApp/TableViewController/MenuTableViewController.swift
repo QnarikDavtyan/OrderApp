@@ -12,6 +12,7 @@ class MenuTableViewController: UITableViewController {
     
     let category: String
     var menuItems = [MenuItem]()
+    var imageLoadTasks: [IndexPath: Task<Void, Never>] = [:]
     
     init?(coder: NSCoder, category: String) {
         self.category = category
@@ -51,6 +52,10 @@ func displayError(_ error: Error, title: String) {
     alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
     self.present(alert, animated: true, completion: nil)
 }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        imageLoadTasks.forEach { key, value in value.cancel() }
+    }
     
     // MARK: - Table view data source
 
@@ -66,19 +71,30 @@ func displayError(_ error: Error, title: String) {
     }
     
     func configure(_ cell: UITableViewCell, forItemsAt indexPath: IndexPath) {
-        let menuItem = menuItems[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = menuItem.name
-        content.secondaryText =
-        menuItem.price.formatted(.currency(code: "usd"))
-        content.image = UIImage(systemName: "photo.on.rectangle")
-        cell.contentConfiguration = content
         
-        Task.init {
+        guard let cell = cell as? MenuItemCell else { return }
+            
+        let menuItem = menuItems[indexPath.row]
+        
+        cell.itemName = menuItem.name
+        cell.price = menuItem.price
+        cell.image = nil
+        
+       imageLoadTasks[indexPath] = Task.init {
             if let image = try? await MenuController.shared.fetchImage(from: menuItem.imageURL) {
-                
+                if let currentIndexPath = self.tableView.indexPath(for: cell),
+                   currentIndexPath == indexPath {
+                    cell.image = image  
+                }
             }
+           imageLoadTasks[indexPath] = nil
         }
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                            didEndDisplaying cell: UITableViewCell,
+                            forRowAt indexPath: IndexPath) {
+        imageLoadTasks[indexPath]?.cancel()
     }
     
     @IBSegueAction func showMenuItem(_ coder: NSCoder, sender: Any?) -> MenuItemDetailViewController? {
@@ -89,5 +105,4 @@ func displayError(_ error: Error, title: String) {
         let menuItem = menuItems[indexPath.row]
         return MenuItemDetailViewController(coder: coder, menuItem: menuItem)
     }
-    
 }

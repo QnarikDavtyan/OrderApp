@@ -12,6 +12,7 @@ class OrderConfirmationViewController: UIViewController {
     
     
     let minutesToPrepare: Int
+
     
     init?(coder: NSCoder, minutesToPrepare: Int) {
         self.minutesToPrepare = minutesToPrepare
