@@ -9,32 +9,23 @@ import UIKit
 
 class MenuItemCell: UITableViewCell {
     
-    var itemName: String? = nil
-    {
-        didSet {
+    var itemName: String? = nil { didSet {
             if oldValue != itemName {
                 setNeedsUpdateConfiguration()
             }
-        }
-    }
+        }}
     
-    var price: Double? = nil
-    {
-        didSet {
+    var price: Double? = nil { didSet {
             if oldValue != price {
                 setNeedsUpdateConfiguration()
             }
-        }
-    }
+        }}
     
-    var image: UIImage? = nil
-    {
-        didSet {
+    var image: UIImage? = nil { didSet {
             if oldValue != image {
                 setNeedsUpdateConfiguration()
             }
-        }
-    }
+        }}
     
     override func updateConfiguration(using state: UICellConfigurationState) {
         var content = defaultContentConfiguration().updated(for: state)

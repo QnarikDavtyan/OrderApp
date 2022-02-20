@@ -13,6 +13,8 @@ class CategoryTableViewController: UITableViewController {
     
     var categories = [String]()
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,8 @@ class CategoryTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    // MARK: - DataSource
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
@@ -59,6 +63,8 @@ class CategoryTableViewController: UITableViewController {
             content.text = category.capitalized
             cell.contentConfiguration = content
     }
+    
+    // MARK: - Segue
     
     @IBSegueAction func showMenu(_ coder: NSCoder, sender: Any?) -> MenuTableViewController? {
         

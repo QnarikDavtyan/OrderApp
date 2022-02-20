@@ -11,6 +11,8 @@ class OrderTableViewController: UITableViewController {
     
     var minutesToPrepareOrder = 0
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +25,8 @@ class OrderTableViewController: UITableViewController {
         )
     }
 
+    // MARK: - DataSource
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MenuController.shared.order.menuItems.count
     }
@@ -60,6 +64,8 @@ class OrderTableViewController: UITableViewController {
              }
          }
     }
+    
+    // MARK: - Segue
     
     @IBSegueAction func confirmOrder(_ coder: NSCoder) -> OrderConfirmationViewController? {
         return OrderConfirmationViewController(coder: coder, minutesToPrepare: minutesToPrepareOrder)

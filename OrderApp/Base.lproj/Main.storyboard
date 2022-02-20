@@ -217,6 +217,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Submit" style="plain" id="wbu-AF-GHT">
                             <connections>
                                 <action selector="submitTapped:" destination="QFa-DT-Mrj" id="Rhb-rB-SSg"/>
+                                <segue destination="9zN-Cn-CUg" kind="presentation" identifier="confirmOrder" destinationCreationSelector="confirmOrder:" id="1yy-Vm-2wl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -230,11 +231,11 @@
             <objects>
                 <viewController id="9zN-Cn-CUg" customClass="OrderConfirmationViewController" customModule="OrderApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kih-NG-2WB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Jwg-BJ-csD">
-                                <rect key="frame" x="0.0" y="418.5" width="414" height="59.5"/>
+                                <rect key="frame" x="0.0" y="391.5" width="414" height="59.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfw-dE-VMr">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
