@@ -72,7 +72,7 @@ func fetchCategories() async throws -> [String] {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let menuIdDict = ["menuIDs": menuIDs]
+        let menuIdDict = ["menuIds": menuIDs]
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(menuIdDict)
         request.httpBody = jsonData

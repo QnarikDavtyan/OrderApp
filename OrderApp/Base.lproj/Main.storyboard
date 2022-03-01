@@ -217,10 +217,12 @@
                         <barButtonItem key="rightBarButtonItem" title="Submit" style="plain" id="wbu-AF-GHT">
                             <connections>
                                 <action selector="submitTapped:" destination="QFa-DT-Mrj" id="Rhb-rB-SSg"/>
-                                <segue destination="9zN-Cn-CUg" kind="presentation" identifier="confirmOrder" destinationCreationSelector="confirmOrder:" id="1yy-Vm-2wl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="9zN-Cn-CUg" kind="presentation" identifier="confirmOrder" destinationCreationSelector="confirmOrder:" id="hWQ-rG-BYC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O7w-Xs-PWv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

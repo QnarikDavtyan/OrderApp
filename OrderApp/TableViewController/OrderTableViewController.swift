@@ -72,8 +72,7 @@ class OrderTableViewController: UITableViewController {
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        let orderTotal = MenuController.shared.order.menuItems.reduce(0.0)
-        { (result, menuItem) -> Double in
+        let orderTotal = MenuController.shared.order.menuItems.reduce(0.0) { result, menuItem -> Double in
             return result + menuItem.price
         }
         
@@ -94,7 +93,7 @@ class OrderTableViewController: UITableViewController {
     }
     
     func uploadOrder() {
-        let menuIds = MenuController.shared.order.menuItems.map { $0.id }
+        let menuIds = MenuController.shared.order.menuItems.map(\.id)
         
         Task.init {
             do {
