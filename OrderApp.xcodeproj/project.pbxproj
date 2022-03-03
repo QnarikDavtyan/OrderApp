@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3576083E27BD18E500B3B791 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3576083D27BD18E500B3B791 /* OrderConfirmationViewController.swift */; };
+		35BC1AAD27C23C6500E11EC6 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BC1AAC27C23C6500E11EC6 /* MenuItemCell.swift */; };
 		35BDE6E127A5CE32005CEB4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDE6E027A5CE32005CEB4B /* AppDelegate.swift */; };
 		35BDE6E327A5CE32005CEB4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDE6E227A5CE32005CEB4B /* SceneDelegate.swift */; };
 		35BDE6E827A5CE32005CEB4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35BDE6E627A5CE32005CEB4B /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		3576083D27BD18E500B3B791 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
+		35BC1AAC27C23C6500E11EC6 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		35BDE6DD27A5CE32005CEB4B /* OrderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BDE6E027A5CE32005CEB4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35BDE6E227A5CE32005CEB4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35BC1AAB27C23C4600E11EC6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				35BC1AAC27C23C6500E11EC6 /* MenuItemCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		35BDE6D427A5CE32005CEB4B = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +86,7 @@
 		35BDE6DF27A5CE32005CEB4B /* OrderApp */ = {
 			isa = PBXGroup;
 			children = (
+				35BC1AAB27C23C4600E11EC6 /* Cell */,
 				35BDE70C27A85E68005CEB4B /* Controller */,
 				35BDE6FE27A5E4D3005CEB4B /* Models */,
 				35BDE6FD27A5E49A005CEB4B /* ViewController */,
@@ -219,6 +230,7 @@
 				35BDE6E327A5CE32005CEB4B /* SceneDelegate.swift in Sources */,
 				35BDE70927A5E960005CEB4B /* OrderResponse.swift in Sources */,
 				35BDE70027A5E4FA005CEB4B /* MenuItem.swift in Sources */,
+				35BC1AAD27C23C6500E11EC6 /* MenuItemCell.swift in Sources */,
 				35BDE6F927A5DFA9005CEB4B /* OrderTableViewController.swift in Sources */,
 				35BDE6F527A5DF6F005CEB4B /* CategoryTableViewController.swift in Sources */,
 			);

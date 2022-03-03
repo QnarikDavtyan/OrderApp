@@ -11,6 +11,8 @@ class OrderTableViewController: UITableViewController {
     
     var minutesToPrepareOrder = 0
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +25,8 @@ class OrderTableViewController: UITableViewController {
         )
     }
 
+    // MARK: - DataSource
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MenuController.shared.order.menuItems.count
     }
@@ -43,21 +47,32 @@ class OrderTableViewController: UITableViewController {
     }
     
     func configure(_ cell: UITableViewCell, forItemAt indexPath: IndexPath) {
-        let menuItem = MenuController.shared.order.menuItems[indexPath.row]
         
-        var content = cell.defaultContentConfiguration()
-        content.text = menuItem.name
-        content.secondaryText = menuItem.price.formatted(.currency(code: "usd"))
-        content.image = UIImage(systemName: "photo.on.rectangle")
-        cell.contentConfiguration = content
+        guard let cell = cell as? MenuItemCell else { return }
+        let menuItem = MenuController.shared.order.menuItems[indexPath.row]
+       
+        cell.itemName = menuItem.name
+        cell.price = menuItem.price
+        cell.image = nil
+        
+       Task.init {
+             if let image = try? await MenuController.shared.fetchImage(from: menuItem.imageURL) {
+                 if let currentIndexPath = self.tableView.indexPath(for: cell),
+                    currentIndexPath == indexPath {
+                     cell.image = image
+                 }
+             }
+         }
     }
+    
+    // MARK: - Segue
     
     @IBSegueAction func confirmOrder(_ coder: NSCoder) -> OrderConfirmationViewController? {
         return OrderConfirmationViewController(coder: coder, minutesToPrepare: minutesToPrepareOrder)
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        let orderTotal = MenuController.shared.order.menuItems.reduce(0.0) { (result, menuItem) -> Double in
+        let orderTotal = MenuController.shared.order.menuItems.reduce(0.0) { result, menuItem -> Double in
             return result + menuItem.price
         }
         
@@ -78,7 +93,7 @@ class OrderTableViewController: UITableViewController {
     }
     
     func uploadOrder() {
-        let menuIds = MenuController.shared.order.menuItems.map { $0.id }
+        let menuIds = MenuController.shared.order.menuItems.map(\.id)
         
         Task.init {
             do {

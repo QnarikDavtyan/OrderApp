@@ -9,14 +9,7 @@ import UIKit
 
 @MainActor
 class MenuItemDetailViewController: UIViewController {
-    
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var detailTextLabel: UILabel!
-    @IBOutlet var addToOrderButton: UIButton!
-
-    let menuItem: MenuItem
+    // MARK: - Init
     
     init?(coder: NSCoder, menuItem: MenuItem) {
         self.menuItem = menuItem
@@ -26,6 +19,20 @@ class MenuItemDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Subviews
+    
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var priceLabel: UILabel!
+    @IBOutlet private var detailTextLabel: UILabel!
+    @IBOutlet private var addToOrderButton: UIButton!
+    
+    // MARK: - Model
+
+    let menuItem: MenuItem
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +44,15 @@ class MenuItemDetailViewController: UIViewController {
         nameLabel.text = menuItem.name
         priceLabel.text = menuItem.price.formatted(.currency(code: "usd"))
         detailTextLabel.text = menuItem.detailText
+        
+        Task.init {
+            if let image =
+                try? await MenuController.shared.fetchImage(from: menuItem.imageURL) {
+                imageView.image = image
+            }
+        }
     }
+    // MARK: - Segue
     
     @IBAction func addToOrderButtonTapped(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: [], animations: {
